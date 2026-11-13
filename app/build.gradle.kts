@@ -25,6 +25,7 @@ android {
     }
     signingConfigs {
         create("release") {
+            // Если файл с паролями есть, настраиваем подпись
             if (keystorePropertiesFile.exists()) {
                 storeFile = file(keystoreProperties["storeFile"] as String)
                 storePassword = keystoreProperties["storePassword"] as String
@@ -33,9 +34,11 @@ android {
             }
         }
     }
+
     buildTypes {
         release {
             isMinifyEnabled = false
+            // Применяем подпись ТОЛЬКО если файл с паролями существует
             if (keystorePropertiesFile.exists()) {
                 signingConfig = signingConfigs.getByName("release")
             }
