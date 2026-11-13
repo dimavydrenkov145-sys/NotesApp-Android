@@ -38,10 +38,6 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            // Применяем подпись ТОЛЬКО если файл с паролями существует
-            if (keystorePropertiesFile.exists()) {
-                signingConfig = signingConfigs.getByName("release")
-            }
         }
     }
     compileOptions {
