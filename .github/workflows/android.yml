@@ -19,6 +19,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # Временно отключаем подпись, чтобы сборка прошла успешно
-      - name: Build Release APK (без подписи)
-        run: ./gradlew assembleRelease -Pandroid.injected.signing.store.file= -Pandroid.injected.signing.store.password= -Pandroid.injected.signing.key.alias= -Pandroid.injected.signing.key.password=
+      # Удаляем локальный файл keystore.properties, если он случайно попал в репозиторий
+      - name: Remove keystore properties
+        run: rm -f keystore.properties
+
+      # Собираем проект
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
